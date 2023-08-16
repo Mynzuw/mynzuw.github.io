@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Kalkulator Segitiga</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator Segitiga</h1>
+        <div class="option">
+            <label for="base">Panjang Alas:</label>
+            <input type="number" id="alas" step="any" required>
+            <label for="height">Tinggi:</label>
+            <input type="number" id="tinggi" step="any" required>
+            <button onclick="hitungLuas()">Hitung Luas</button>
+            <p>Luas: ½ × Alas × Tinggi</p>
+            <p>Luas: <span id="Luas"></span></p>
+        </div>
+        <div class="option">
+            <label for="sideA">Sisi A:</label>
+            <input type="number" id="sisiA" step="any" required>
+            <label for="sideB">Sisi B:</label>
+            <input type="number" id="sisiB" step="any" required>
+            <label for="sideC">Sisi C:</label>
+            <input type="number" id="sisiC" step="any" required>
+            <button onclick="hitungKeliling()">Hitung Keliling</button>
+            <p>Keliling: Sisi A + Sisi B + Sisi C</p>
+            <p>Keliling: <span id="Keliling"></span></p>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
