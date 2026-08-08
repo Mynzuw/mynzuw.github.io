@@ -1,0 +1,420 @@
+/* RETRO PIXELATED 8-BIT / NES CSS STYLES */
+
+/* Pixelated Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+    --retro-bg: #0d0d15;
+    --retro-card-bg: #1a1a24;
+    --retro-green: #92cc41;
+    --retro-yellow: #f7d51d;
+    --retro-blue: #209cee;
+    --retro-red: #e76e55;
+    --retro-white: #ffffff;
+    --retro-text: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', monospace, cursive;
+}
+
+body {
+    background-color: var(--retro-bg);
+    color: var(--retro-text);
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* CRT Overlay Scanlines */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Retro Nav */
+.nav-retro {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999 !important;
+    padding: 12px 0 !important;
+    border-bottom: 4px solid #000 !important;
+    background-color: #12121a !important;
+}
+
+.hero-retro {
+    padding-top: 200px;
+}
+
+.hero-grid > .nes-container {
+    margin-top: 80px !important;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-pixel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--retro-yellow);
+}
+
+.btn-sm {
+    font-size: 9px !important;
+    padding: 6px 10px !important;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+/* Sections */
+.hero-retro, .section-retro {
+    padding: 50px 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+.pixel-heading {
+    font-size: 22px;
+    color: var(--retro-yellow);
+    margin: 16px 0 8px 0;
+    text-shadow: 3px 3px #000;
+}
+
+.pixel-subheading {
+    font-size: 11px;
+    color: var(--retro-blue);
+    margin-bottom: 20px;
+}
+
+.retro-desc {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #cccccc;
+    margin-bottom: 24px;
+}
+
+.retro-badge {
+    font-size: 10px;
+    color: var(--retro-green);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 14px;
+}
+
+/* Avatar Frame Pixelated */
+.pixel-avatar-frame {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px auto;
+    border: 4px solid #ffffff;
+    box-shadow: 6px 6px 0px #000;
+    overflow: hidden;
+    background: #000;
+}
+
+.pixel-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    filter: contrast(110%) saturate(120%);
+}
+
+.hp-bar-box {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.hp-label {
+    font-size: 8px;
+    display: block;
+    margin-bottom: 4px;
+    color: var(--retro-text);
+}
+
+.pixel-dialog {
+    margin-top: 16px !important;
+    font-size: 10px !important;
+}
+
+/* About Section */
+.about-grid {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.pixel-icon-box {
+    font-size: 3rem;
+}
+
+.about-text p {
+    font-size: 11px;
+    line-height: 1.9;
+    margin-bottom: 14px;
+}
+
+.about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stat-title {
+    font-size: 14px;
+    color: var(--retro-yellow);
+    margin-top: 10px;
+}
+
+.stat-sub {
+    font-size: 9px;
+    color: #aaa;
+}
+
+/* Experience / Quests */
+.retro-section-header {
+    font-size: 16px;
+    color: var(--retro-green);
+    margin-bottom: 36px;
+    text-shadow: 2px 2px #000;
+}
+
+.quest-card {
+    margin-bottom: 36px !important;
+}
+
+.quest-meta {
+    margin-bottom: 16px;
+}
+
+.retro-list li {
+    font-size: 10px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #dddddd;
+}
+
+.item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Fix NES Badge text truncation - clean horizontal layout */
+.nes-badge {
+    display: inline-block !important;
+    height: auto !important;
+    width: auto !important;
+    margin-right: 12px;
+    margin-bottom: 8px;
+}
+
+.nes-badge span, .nes-badge a {
+    display: inline-block !important;
+    font-size: 8px !important;
+    padding: 6px 12px !important;
+    height: auto !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    position: relative !important;
+}
+
+/* Inventory & Skills */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.retro-skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.retro-skill-list li {
+    font-size: 9px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pixel-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tool-btn {
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+}
+
+/* Retro Interactive Terminal */
+.retro-terminal-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.terminal-tab {
+    display: none;
+    background: #000;
+    padding: 20px;
+    border: 4px solid var(--retro-green);
+}
+
+.terminal-tab.active {
+    display: block;
+}
+
+.terminal-line {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.text-green { color: var(--retro-green); }
+.text-yellow { color: var(--retro-yellow); }
+
+.code-box {
+    margin-top: 16px;
+    background: #111;
+    padding: 12px;
+    border: 2px dashed #444;
+}
+
+.code-title {
+    font-size: 9px;
+    color: var(--retro-blue);
+}
+
+pre code {
+    font-family: 'VT323', monospace !important;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.step-retro p {
+    font-size: 10px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+/* Education */
+.edu-retro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.edu-retro-grid h3 {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Contact & Footer */
+.retro-contact-text {
+    font-size: 12px;
+    margin: 20px 0 30px 0;
+    color: var(--retro-yellow);
+}
+
+.retro-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-retro {
+    padding: 30px 0;
+    font-size: 9px;
+    color: #777;
+    border-top: 4px solid #000;
+    background: #050508;
+}
+
+.text-center { text-align: center; }
+
+.mobile-toggle-btn {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .hero-grid, .about-stats-grid, .inventory-grid, .edu-retro-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mobile-toggle-btn {
+        display: inline-block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #12121a;
+        border-bottom: 4px solid #000;
+        padding: 20px;
+        flex-direction: column;
+        gap: 14px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+    }
+}
