@@ -19,6 +19,11 @@
     font-family: 'Press Start 2P', monospace, cursive;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 body {
     background-color: var(--retro-bg);
     color: var(--retro-text);
@@ -639,5 +644,25 @@ pre code {
     .tree-arrow {
         text-align: center;
         transform: rotate(90deg);
+    }
+    /* Prevent NES.css elements from causing horizontal overflow on mobile */
+    .nes-container {
+        padding: 1rem 0.8rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    pre {
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+    }
+    .nes-btn {
+        max-width: 100%;
+        white-space: normal !important;
+        height: auto !important;
+        line-height: 1.4 !important;
+    }
+    .project-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        display: grid;
     }
 }
