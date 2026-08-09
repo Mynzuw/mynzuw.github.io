@@ -160,14 +160,14 @@
                     <span class="nes-badge"><span class="is-dark">JUN 2023 - AUG 2024</span></span>
                 </div>
                 <ul class="nes-list is-circle retro-list">
-                    <li>Mengembangkan aplikasi manajemen Surat Keterangan Bebas Temuan (SKBT) berbasis Web (PHP & MySQL).</li>
-                    <li><strong>Dual-Approval System Logic:</strong> Mengembangkan arsitektur persetujuan bertingkat (<i>Internal Approval</i> oleh Tim Internal dan <i>Eksternal Approval</i> oleh Inspektorat/Superadmin). Surat SKBT hanya dapat diterbitkan dan diunduh jika kedua otoritas memberikan status <strong>Approved</strong>. Jika salah satu peninjau memberikan status <i>Rejected/Pending</i>, penerbitan surat otomatis ditangguhkan.</li>
-                    <li>Membuat Form Input & Validasi di sisi frontend (memastikan field tidak kosong, sanitasi data NIP/Pangkat, & validasi format upload berkas PDF).</li>
-                    <li>Integrasi Layout/UI Responsive, manajemen hak akses berbasis peran (RBAC: <i>superadmin, internal, bagian</i>), & Pembuatan API/Backend Endpoints.</li>
-                    <li>Melakukan <i>Internal Testing</i> bersama Lead Developer dan menyusun <i>report progress</i> berkala kepada pengguna/stakeholder Kemenag RI.</li>
+                    <li>Mengembangkan aplikasi web manajemen Surat Keterangan Bebas Temuan (SKBT) menggunakan PHP & MySQL.</li>
+                    <li><strong>Approval System Workflow:</strong> Merancang dan membangun alur sistem persetujuan bertingkat (multi-stage approval). Surat SKBT hanya dapat diterbitkan apabila seluruh otoritas yang berwenang telah memberikan persetujuan resmi.</li>
+                    <li>Membuat Form Input & Validasi di sisi frontend (memastikan kelengkapan data dan format dokumen pendukung).</li>
+                    <li>Integrasi UI/Layout responsif, manajemen hak akses pengguna (RBAC), serta pembuatan API/Backend Endpoints.</li>
+                    <li>Melakukan <i>Internal Testing</i> bersama tim dan menyusun laporan perkembangan teknis berkala kepada pemangku kepentingan (stakeholder).</li>
                 </ul>
                 <div class="item-tags">
-                    <span class="nes-badge"><span class="is-success">DUAL APPROVAL WORKFLOW</span></span>
+                    <span class="nes-badge"><span class="is-success">APPROVAL WORKFLOW</span></span>
                     <span class="nes-badge"><span class="is-primary">PHP & MYSQL</span></span>
                     <span class="nes-badge"><span class="is-warning">ROLE-BASED ACCESS (RBAC)</span></span>
                 </div>
@@ -284,37 +284,34 @@
                 </div>
 
                 <div id="tab-api" class="terminal-tab active">
-                    <div class="terminal-line"><span class="text-green">[SYSTEM]</span> POST /admin/proses/submit_internal_approve.php</div>
-                    <p class="text-yellow">// Description: Endpoint verifikasi persetujuan ganda (Dual Approval: Internal & Eksternal) SKBT Kemenag RI</p>
+                    <div class="terminal-line"><span class="text-green">[SYSTEM]</span> POST /api/v1/approval/verify-status</div>
+                    <p class="text-yellow">// Description: Endpoint verifikasi alur persetujuan bertingkat (Multi-stage Approval System)</p>
                     
                     <div class="code-box">
-                        <span class="code-title">APPROVAL PAYLOAD (DATABASE SCHEMA):</span>
+                        <span class="code-title">APPROVAL PAYLOAD SAMPLE:</span>
 <pre><code>{
-  "id_skbt": 889,
-  "internal_status": "Approved",
-  "eksternal_status": "Approved",
-  "internal_approver_name": "superadmin_internal",
-  "eksternal_approver_name": "superadmin_eksternal"
+  "document_id": "DOC-2026-889",
+  "approval_stage_1": "APPROVED",
+  "approval_stage_2": "APPROVED"
 }</code></pre>
                     </div>
 
                     <div class="code-box">
-                        <span class="code-title">RESPONSE 200 OK (DUAL APPROVED CONDITION):</span>
+                        <span class="code-title">RESPONSE 200 OK (FULL APPROVED CONDITION):</span>
 <pre><code>{
   "code": 200,
-  "status": "APPROVED_BOTH",
-  "message": "Status Internal: Approved | Eksternal: Approved. Surat SKBT Resmi Diterbitkan.",
-  "document_template_url": "/admin/print/template_surat.php?id_skbt=889"
+  "status": "ISSUED",
+  "message": "Seluruh otoritas menyetujui. Dokumen resmi diterbitkan."
 }</code></pre>
                     </div>
                 </div>
 
                 <div id="tab-guide" class="terminal-tab">
-                    <div class="terminal-line"><span class="text-green">[GUIDE]</span> USER MANUAL: ALUR VERIFIKASI DUAL-APPROVAL SKBT</div>
+                    <div class="terminal-line"><span class="text-green">[GUIDE]</span> USER MANUAL: ALUR VERIFIKASI PERSETUJUAN</div>
                     <div class="step-retro">
-                        <p><span class="text-yellow">[STEP 1]</span> Pemohon mengunggah berkas pengajuan via Form Input SKBT.</p>
-                        <p><span class="text-yellow">[STEP 2]</span> Tim Internal meninjau berkas (`submit_internal_approve.php`) & Inspektorat Eksternal meninjau berkas (`submit_eksternal_approve.php`).</p>
-                        <p><span class="text-yellow">[STEP 3]</span> Sistem mengecek kondisi persetujuan ganda: Tombol **Unduh Disposisi/Surat** (`template_surat.php`) <strong>hanya aktif jika `internal_status == 'Approved'` DAN `eksternal_status == 'Approved'`</strong>.</p>
+                        <p><span class="text-yellow">[STEP 1]</span> Pengguna mengajukan berkas dokumen via Form Online.</p>
+                        <p><span class="text-yellow">[STEP 2]</span> Otoritas Peninjau 1 & Otoritas Peninjau 2 melakukan pemeriksaan berkas secara bertahap.</p>
+                        <p><span class="text-yellow">[STEP 3]</span> Sistem mengecek syarat persetujuan: Dokumen <strong>hanya terbit apabila seluruh otoritas memberikan status persetujuan resmi (Approved)</strong>.</p>
                     </div>
                 </div>
 
