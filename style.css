@@ -661,8 +661,10 @@ pre code {
         height: auto !important;
         line-height: 1.4 !important;
     }
-    .project-stats-bar {
-        grid-template-columns: repeat(2, 1fr);
-        display: grid;
+    .inventory-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .inventory-grid .nes-container {
+        margin-bottom: 20px;
     }
 }
