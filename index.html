@@ -61,6 +61,7 @@
             </button>
             <div class="nav-links" id="retro-nav-links">
                 <a href="#about" class="nes-btn is-primary btn-sm">ABOUT</a>
+                <a href="#projects" class="nes-btn is-success btn-sm">PROJECTS</a>
                 <a href="#experience" class="nes-btn is-warning btn-sm">QUESTS</a>
                 <a href="#publications" class="nes-btn is-primary btn-sm">PUBLICATIONS</a>
                 <a href="#skills" class="nes-btn is-success btn-sm">INVENTORY</a>
@@ -135,11 +136,28 @@
                         </p>
                     </div>
                 </div>
-                <div class="about-stats-grid">
+
+                <!-- Skill Tree / Character Progression -->
+                <div class="nes-container is-dark with-title" style="margin-top: 30px;">
+                    <p class="title">CHARACTER PROGRESSION // SKILL TREE</p>
+                    <div class="skill-tree-grid">
+                        <div class="tree-node"><span class="node-step">1</span> Development</div>
+                        <div class="tree-arrow">➔</div>
+                        <div class="tree-node"><span class="node-step">2</span> AI / Machine Learning</div>
+                        <div class="tree-arrow">➔</div>
+                        <div class="tree-node"><span class="node-step">3</span> Software Engineering</div>
+                        <div class="tree-arrow">➔</div>
+                        <div class="tree-node"><span class="node-step">4</span> QA & Testing</div>
+                        <div class="tree-arrow">➔</div>
+                        <div class="tree-node active"><span class="node-step">5</span> Technical Writing</div>
+                    </div>
+                </div>
+
+                <div class="about-stats-grid" style="margin-top: 30px;">
                     <div class="nes-container is-rounded is-dark text-center">
                         <i class="nes-icon trophy is-medium"></i>
-                        <p class="stat-title">1+ YEAR</p>
-                        <p class="stat-sub">Tech Writing Exp</p>
+                        <p class="stat-title">15+</p>
+                        <p class="stat-sub">Completed Projects</p>
                     </div>
                     <div class="nes-container is-rounded is-dark text-center">
                         <i class="nes-icon heart is-medium"></i>
@@ -155,6 +173,69 @@
             </div>
         </div>
     </section>
+
+    <!-- Project Inventory / Quest Log Section -->
+    <section class="section-retro" id="projects">
+        <div class="container">
+            <h2 class="retro-section-header text-center">
+                <i class="nes-icon star is-small"></i> PROJECT INVENTORY & QUEST LOG
+            </h2>
+
+            <!-- Stats Bar -->
+            <div class="project-stats-bar nes-container is-dark text-center" style="margin-bottom: 30px;">
+                <div class="p-stat"><span class="p-num">15</span> <span class="p-lbl">TOTAL PROJECTS</span></div>
+                <div class="p-stat"><span class="p-num">6</span> <span class="p-lbl">WEB PROJECTS</span></div>
+                <div class="p-stat"><span class="p-num">6</span> <span class="p-lbl">AI / ML PROJECTS</span></div>
+                <div class="p-stat"><span class="p-num">1</span> <span class="p-lbl">MOBILE APP</span></div>
+                <div class="p-stat"><span class="p-num">2</span> <span class="p-lbl">DESKTOP / UTILITY</span></div>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="project-filters text-center">
+                <button class="nes-btn filter-btn is-primary active" onclick="filterProjects('ALL')">ALL</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('FEATURED')">⭐ FEATURED</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('WEB')">WEB</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('AI / ML')">AI / ML</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('NLP')">NLP</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('COMPUTER VISION')">VISION</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('MOBILE')">MOBILE</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('DESKTOP')">DESKTOP</button>
+                <button class="nes-btn filter-btn" onclick="filterProjects('INFO SYSTEM')">INFO SYSTEM</button>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="projects-grid" id="projects-container">
+                <!-- Project cards generated dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Progressive Disclosure Project Details -->
+    <div class="modal-overlay" id="project-modal" onclick="closeProjectModal(event)">
+        <div class="nes-container is-dark with-title modal-box" onclick="event.stopPropagation()">
+            <p class="title" id="modal-project-type">PROJECT DETAIL</p>
+            <div class="modal-header">
+                <h3 id="modal-project-title" class="text-yellow">Project Name</h3>
+                <button class="nes-btn is-error btn-sm modal-close-btn" onclick="closeProjectModal()">X</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-badges" class="modal-badges-container"></div>
+                <div class="modal-section">
+                    <h4 class="text-green"><i class="fa-solid fa-circle-info"></i> Project Overview</h4>
+                    <p id="modal-desc" class="retro-desc">Description</p>
+                </div>
+                <div class="modal-section" id="sec-tech">
+                    <h4 class="text-primary"><i class="fa-solid fa-code"></i> Technology & Stack</h4>
+                    <p id="modal-tech" class="retro-desc">Tech stack</p>
+                </div>
+                <div class="modal-section" id="sec-features" style="display:none;">
+                    <h4 class="text-warning"><i class="fa-solid fa-list-check"></i> Key Features</h4>
+                    <ul id="modal-features-list" class="nes-list is-circle retro-list"></ul>
+                </div>
+                <div class="modal-footer text-right" id="modal-links-container" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Experience / Quests Section -->
     <section class="section-retro" id="experience">
@@ -442,6 +523,233 @@
             link.addEventListener('click', () => {
                 retroNavLinks.classList.remove('active');
             });
+        });
+
+        // --- 15 PROJECTS DATASET & FILTERING ---
+        const projectsData = [
+            {
+                id: 1,
+                title: "Indonesian Court Decision Text Summarizer",
+                categories: ["FEATURED", "AI / ML", "NLP", "WEB"],
+                tech: "Python • TextRank • TF-IDF • Cosine Similarity • Flask",
+                type: "NLP / RESEARCH PROJECT",
+                featured: true,
+                desc: "Sistem peringkas teks untuk dokumen putusan pengadilan berbahasa Indonesia menggunakan algoritma TextRank. Menerapkan pemrosesan bahasa alami (NLP) seperti tokenisasi, text cleaning, stemming Sastrawi, serta ekstraksi kalimat kunci berbasis graph.",
+                features: ["Tokenisasi & Text Cleaning", "Stemming Sastrawi & TF-IDF Weighting", "Cosine Similarity & Graph NetworkX TextRank", "Evaluasi metrik Precision, Recall, F-Measure"],
+                publicationLink: "https://www.google.com/search?q=miftah+adha+sintech"
+            },
+            {
+                id: 2,
+                title: "Traditional Cake Classification",
+                categories: ["FEATURED", "AI / ML", "COMPUTER VISION"],
+                tech: "Deep Learning • EfficientNet",
+                type: "IMAGE CLASSIFICATION",
+                featured: true,
+                desc: "Sistem klasifikasi kue tradisional berbasis komputer visi menggunakan arsitektur deep learning EfficientNet untuk mengenali dan mengelompokkan jenis-jenis kue tradisional secara presisi.",
+                features: ["Deep Learning Image Recognition", "EfficientNet Model Architecture", "Automatic Feature Extraction"]
+            },
+            {
+                id: 3,
+                title: "Decision Tree Web Classifier",
+                categories: ["FEATURED", "AI / ML", "WEB"],
+                tech: "Python • Decision Tree Algorithm",
+                type: "MACHINE LEARNING WEB APP",
+                featured: true,
+                desc: "Website berbasis Python yang menerapkan algoritma Decision Tree untuk proses klasifikasi dan analisis pohon keputusan interaktif."
+            },
+            {
+                id: 4,
+                title: "Student Ranking System (SAW)",
+                categories: ["FEATURED", "WEB", "INFO SYSTEM"],
+                tech: "Web Application • SAW (Simple Additive Weighting)",
+                type: "DECISION SUPPORT SYSTEM",
+                featured: true,
+                desc: "Sistem pendukung keputusan untuk perangkingan mahasiswa berdasarkan beberapa aspek dan kriteria objektif menggunakan metode Simple Additive Weighting (SAW)."
+            },
+            {
+                id: 5,
+                title: "EDOM — Electronic Evaluation of Lecturers",
+                categories: ["FEATURED", "WEB", "INFO SYSTEM"],
+                tech: "PHP Native • MVC Architecture",
+                type: "INFORMATION SYSTEM",
+                featured: true,
+                desc: "Sistem EDOM (Evaluasi Dosen oleh Mahasiswa) berbasis arsitektur MVC untuk pengelolaan dan evaluasi kinerja pengajaran dosen secara tersentralisasi."
+            },
+            {
+                id: 6,
+                title: "Comic Reading Platform",
+                categories: ["FEATURED", "WEB"],
+                tech: "Full-stack Web",
+                type: "FULL-STACK WEB APP",
+                featured: true,
+                desc: "Platform portal baca komik digital dengan fitur lengkap untuk pembaca dan panel kontrol administrasi.",
+                features: ["User Reading Interface", "Admin Content Panel", "Comic & Chapter Management", "User Access Control"]
+            },
+            {
+                id: 7,
+                title: "Al-Qur'an Core Tajwid Detection",
+                categories: ["FEATURED", "AI / ML"],
+                tech: "Artificial Intelligence",
+                type: "AI APPLICATION",
+                featured: true,
+                desc: "Aplikasi kecerdasan buatan (AI) yang dirancang untuk mendeteksi inti dan kaidah hukum tajwid pada ayat Al-Qur'an."
+            },
+            {
+                id: 8,
+                title: "Butterfly Species Classification",
+                categories: ["AI / ML", "COMPUTER VISION"],
+                tech: "Machine Learning / Deep Learning",
+                type: "IMAGE CLASSIFICATION",
+                desc: "Sistem klasifikasi komputer visi untuk mengenali dan mengidentifikasi spesies jenis-jenis kupu-kupu berdasarkan data gambar."
+            },
+            {
+                id: 9,
+                title: "Digital Letter Disposition System",
+                categories: ["WEB", "INFO SYSTEM"],
+                tech: "PHP • MySQL",
+                type: "INFORMATION SYSTEM",
+                desc: "Sistem informasi aplikasi berbasis web untuk mengelola dan memantau proses disposisi surat resmi secara digital dan terstruktur."
+            },
+            {
+                id: 10,
+                title: "Manga Reader Android App",
+                categories: ["MOBILE"],
+                tech: "Android • MangaDex API Integration",
+                type: "MOBILE APPLICATION",
+                desc: "Aplikasi Android untuk membaca manga digital yang terintegrasi secara langsung dengan MangaDex API.",
+                features: ["Manga Catalog Browsing", "Interactive Reader Interface", "MangaDex REST API Integration"]
+            },
+            {
+                id: 11,
+                title: "Medicine Inventory System",
+                categories: ["WEB", "INFO SYSTEM"],
+                tech: "PHP Native • Database Management",
+                type: "INVENTORY SYSTEM",
+                desc: "Sistem inventarisasi manajemen obat untuk pengelolaan katalog data obat, stok, dan pencatatan stok mutasi."
+            },
+            {
+                id: 12,
+                title: "Daily Journal Application",
+                categories: ["DESKTOP", "OTHER"],
+                tech: "Python • Tkinter GUI",
+                type: "DESKTOP APPLICATION",
+                desc: "Aplikasi desktop catatan harian sederhana berbasis antarmuka Tkinter GUI untuk mencatat aktivitas dan jurnal harian pengguna."
+            },
+            {
+                id: 13,
+                title: "Automatic Invoice Generator",
+                categories: ["DESKTOP", "OTHER"],
+                tech: "Utility / Productivity Application",
+                type: "UTILITY APP",
+                desc: "Aplikasi alat bantu (utility) produktivitas untuk membuat dan menghasilkan (generate) berkas invoice faktur pembayaran secara otomatis."
+            },
+            {
+                id: 14,
+                title: "WordPress Corporate Website (5 Pages)",
+                categories: ["WEB"],
+                tech: "WordPress • CMS",
+                type: "WEBSITE / CMS",
+                desc: "Website company profile berbasis CMS WordPress dengan lima navigasi halaman utama yang terstruktur."
+            },
+            {
+                id: 15,
+                title: "WordPress Landing Page",
+                categories: ["WEB"],
+                tech: "WordPress • CMS",
+                type: "LANDING PAGE",
+                desc: "Halaman landing page interaktif berbasis CMS WordPress yang dirancang khusus untuk kebutuhan komunikasi dan presentasi."
+            }
+        ];
+
+        let currentFilter = 'ALL';
+
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = '';
+
+            const filtered = projectsData.filter(p => {
+                if (currentFilter === 'ALL') return true;
+                if (currentFilter === 'FEATURED') return p.featured === true;
+                return p.categories.includes(currentFilter);
+            });
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'nes-container is-dark with-title project-card-item';
+                
+                const typeBadge = `<span class="project-type-tag">${p.type}</span>`;
+                const title = `<h3 class="p-card-title text-yellow">${p.title}</h3>`;
+                const tech = `<p class="p-card-tech"><i class="fa-solid fa-code"></i> ${p.tech}</p>`;
+                const desc = `<p class="p-card-desc">${p.desc.length > 90 ? p.desc.substring(0, 90) + '...' : p.desc}</p>`;
+                
+                let categoryBadges = p.categories.map(c => `<span class="nes-badge"><span class="is-primary">${c}</span></span>`).join(' ');
+
+                card.innerHTML = `
+                    <p class="title">${p.type}</p>
+                    ${title}
+                    ${tech}
+                    ${desc}
+                    <div class="p-card-badges">${categoryBadges}</div>
+                    <button class="nes-btn is-success btn-sm view-quest-btn" onclick="openProjectModal(${p.id})">
+                        <i class="fa-solid fa-eye"></i> VIEW QUEST
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterProjects(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'is-primary');
+                if (btn.textContent.trim().includes(cat) || (cat === 'COMPUTER VISION' && btn.textContent.includes('VISION')) || (cat === 'INFO SYSTEM' && btn.textContent.includes('INFO SYSTEM'))) {
+                    btn.classList.add('active', 'is-primary');
+                }
+            });
+            renderProjects();
+        }
+
+        function openProjectModal(id) {
+            const project = projectsData.find(p => p.id === id);
+            if (!project) return;
+
+            document.getElementById('modal-project-type').textContent = project.type;
+            document.getElementById('modal-project-title').textContent = project.title;
+            document.getElementById('modal-desc').textContent = project.desc;
+            document.getElementById('modal-tech').textContent = project.tech;
+
+            const badgesContainer = document.getElementById('modal-badges');
+            badgesContainer.innerHTML = project.categories.map(c => `<span class="nes-badge"><span class="is-warning">${c}</span></span>`).join(' ');
+
+            const secFeatures = document.getElementById('sec-features');
+            const featuresList = document.getElementById('modal-features-list');
+            if (project.features && project.features.length > 0) {
+                secFeatures.style.display = 'block';
+                featuresList.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
+            } else {
+                secFeatures.style.display = 'none';
+            }
+
+            const linksContainer = document.getElementById('modal-links-container');
+            linksContainer.innerHTML = '';
+            if (project.publicationLink) {
+                linksContainer.innerHTML = `
+                    <a href="${project.publicationLink}" target="_blank" class="nes-btn is-warning btn-sm">
+                        <i class="fa-solid fa-magnifying-glass"></i> SEARCH PUBLICATION ON GOOGLE
+                    </a>
+                `;
+            }
+
+            document.getElementById('project-modal').classList.add('active');
+        }
+
+        function closeProjectModal(e) {
+            document.getElementById('project-modal').classList.remove('active');
+        }
+
+        // Initial Render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
         });
     </script>
 </body>
