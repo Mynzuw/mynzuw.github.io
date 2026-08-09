@@ -161,12 +161,13 @@
                 </div>
                 <ul class="nes-list is-circle retro-list">
                     <li>Mengembangkan aplikasi manajemen Surat Keterangan Bebas Temuan (SKBT).</li>
+                    <li><strong>Dual Approval Workflow:</strong> Membangun logika sistem persetujuan dua tahap (dual approval) di mana Surat SKBT hanya terbit jika kedua pihak otoritas (misal: Inspector & Lead Developer/Auditor) memberikan persetujuan lengkap. Jika hanya satu pihak yang menyetujui, surat tidak terbit.</li>
                     <li>Membuat Form Input & Validasi di sisi frontend (memastikan field tidak kosong & format upload sesuai).</li>
                     <li>Integrasi Layout/UI & Pembuatan API Endpoints.</li>
                     <li>Melakukan Internal testing bersama lead developer dan menyusun report progress untuk user/stakeholder.</li>
                 </ul>
                 <div class="item-tags">
-                    <span class="nes-badge"><span class="is-success">SKBT SYSTEM</span></span>
+                    <span class="nes-badge"><span class="is-success">DUAL APPROVAL WORKFLOW</span></span>
                     <span class="nes-badge"><span class="is-primary">FRONTEND FORM</span></span>
                     <span class="nes-badge"><span class="is-warning">API BUILD</span></span>
                 </div>
@@ -283,34 +284,35 @@
                 </div>
 
                 <div id="tab-api" class="terminal-tab active">
-                    <div class="terminal-line"><span class="text-green">[SYSTEM]</span> POST /api/v1/skbt/verify-submission</div>
-                    <p class="text-yellow">// Description: Endpoint verifikasi pengajuan berkas SKBT Kemenag RI</p>
+                    <div class="terminal-line"><span class="text-green">[SYSTEM]</span> POST /api/v1/skbt/approval-status</div>
+                    <p class="text-yellow">// Description: Endpoint verifikasi persetujuan ganda (Dual Approval) SKBT Kemenag RI</p>
                     
                     <div class="code-box">
                         <span class="code-title">REQUEST PAYLOAD:</span>
 <pre><code>{
-  "applicant_id": "MFT-2026-99",
-  "document_type": "SKBT_BEBAS_TEMUAN",
-  "status": "SUBMITTED"
+  "ticket_id": "SKBT-2026-889",
+  "approval_auditor_1": true,
+  "approval_auditor_2": true
 }</code></pre>
                     </div>
 
                     <div class="code-box">
-                        <span class="code-title">RESPONSE 200 OK:</span>
+                        <span class="code-title">RESPONSE 200 OK (DUAL APPROVED):</span>
 <pre><code>{
   "code": 200,
-  "message": "SKBT SUCCESS VALIDATED",
-  "ticket_id": "TCK-884920"
+  "status": "ISSUED",
+  "message": "Kedua otoritas menyetujui. Surat SKBT resmi terbit.",
+  "document_url": "https://skbt.kemenag.go.id/docs/SKBT-2026-889.pdf"
 }</code></pre>
                     </div>
                 </div>
 
                 <div id="tab-guide" class="terminal-tab">
-                    <div class="terminal-line"><span class="text-green">[GUIDE]</span> USER MANUAL: VERIFIKASI SKBT</div>
+                    <div class="terminal-line"><span class="text-green">[GUIDE]</span> USER MANUAL: ALUR PENGAMBILAN SKBT</div>
                     <div class="step-retro">
-                        <p><span class="text-yellow">[STEP 1]</span> Akses portal utama SKBT dan login ke akun Anda.</p>
-                        <p><span class="text-yellow">[STEP 2]</span> Isi form online dan unggah berkas PDF pendukung (Maks. 5MB).</p>
-                        <p><span class="text-yellow">[STEP 3]</span> Klik tombol "SUBMIT" dan catat TICKET ID untuk lacak status.</p>
+                        <p><span class="text-yellow">[STEP 1]</span> Pemohon mengajukan berkas via Form Online SKBT.</p>
+                        <p><span class="text-yellow">[STEP 2]</span> Verifikasi Pihak 1 (Auditor Utama) & Pihak 2 (Inspektur) melakukan peninjauan independen.</p>
+                        <p><span class="text-yellow">[STEP 3]</span> Sistem mengecek kondisi: Surat SKBT <strong>otomatis terbit hanya jika Pihak 1 & Pihak 2 keduanya menyetujui (2/2 Approved)</strong>.</p>
                     </div>
                 </div>
 
